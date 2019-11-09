@@ -1,0 +1,15 @@
+{
+    "name": "TSKT.Tween",
+    "references": [
+        "UniRx.Async",
+        "TSKT.Math"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
