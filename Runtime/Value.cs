@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TSKT.Tweens
 {
-    public class Value : Entity
+    public class Value : Task
     {
         public delegate void CallbackAction(float time);
 

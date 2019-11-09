@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TSKT.Tweens
 {
-    public class ShakePosition : Entity
+    public class ShakePosition : Task
     {
         Vector3 amount;
         bool local;

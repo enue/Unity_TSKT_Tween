@@ -6,7 +6,7 @@ using UniRx.Async;
 
 namespace TSKT.Tweens
 {
-    public abstract class Entity
+    public abstract class Task
     {
         protected GameObject Target { get; private set; }
         readonly float startedTime;
@@ -15,7 +15,7 @@ namespace TSKT.Tweens
         UniTaskCompletionSource completion;
         public bool Halted { get; private set; }
 
-        public Entity(GameObject target, float duration, bool scaledTime)
+        public Task(GameObject target, float duration, bool scaledTime)
         {
             this.duration = duration;
             this.scaledTime = scaledTime;

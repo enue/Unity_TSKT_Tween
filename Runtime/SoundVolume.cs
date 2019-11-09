@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TSKT.Tweens
 {
-    public class SoundVolume : Entity
+    public class SoundVolume : Task
     {
         AudioSource targetAudio;
         float? to;

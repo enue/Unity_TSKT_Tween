@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace TSKT.Tweens
 {
-    public class Color : Entity
+    public class Color : Task
     {
         Graphic targetGraphic;
         SpriteRenderer targetSprite;

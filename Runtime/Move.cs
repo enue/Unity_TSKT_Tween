@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TSKT.Tweens
 {
-    public class Move : Entity
+    public class Move : Task
     {
         public Move(GameObject target, float duration, bool scaledTime) : base(target, duration, scaledTime: scaledTime)
         {
