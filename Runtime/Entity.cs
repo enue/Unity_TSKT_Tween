@@ -39,7 +39,9 @@ namespace TSKT.Tweens
         {
             while (true)
             {
-                if (!Halted && Target)
+                if (!Halted
+                    && Target
+                    && Target.activeInHierarchy)
                 {
                     Apply();
                 }
