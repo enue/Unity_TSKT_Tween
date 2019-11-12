@@ -120,6 +120,7 @@ namespace TSKT.Tweens
         public void Halt()
         {
             Halted = true;
+            completion?.TrySetResult();
         }
     }
 }
