@@ -8,11 +8,19 @@ namespace TSKT.Tweens
 {
     public abstract class Task
     {
+        public enum FinishType
+        {
+            Completed,
+            Halted,
+            DisbaledGameObject,
+            DestroyedGameObject,
+        }
+
         protected GameObject Target { get; private set; }
         readonly float startedTime;
         readonly float duration;
         readonly bool scaledTime;
-        UniTaskCompletionSource completion;
+        UniTaskCompletionSource<FinishType> completion;
         public bool Halted { get; private set; }
 
         public Task(GameObject target, float duration, bool scaledTime)
@@ -30,7 +38,7 @@ namespace TSKT.Tweens
                 startedTime = Time.realtimeSinceStartup;
             }
 
-            UniTask.DelayFrame(0, PlayerLoopTiming.PostLateUpdate)
+            UniRx.Async.UniTask.DelayFrame(0, PlayerLoopTiming.PostLateUpdate)
                 .ContinueWith(_ => Update())
                 .Forget();
         }
@@ -41,14 +49,17 @@ namespace TSKT.Tweens
             {
                 if (Halted)
                 {
+                    completion?.TrySetResult(FinishType.Halted);
                     break;
                 }
                 if (!Target)
                 {
+                    completion?.TrySetResult(FinishType.DestroyedGameObject);
                     break;
                 }
                 if (!Target.activeInHierarchy)
                 {
+                    completion?.TrySetResult(FinishType.DisbaledGameObject);
                     break;
                 }
 
@@ -56,11 +67,11 @@ namespace TSKT.Tweens
 
                 if (ElapsedTime >= duration)
                 {
+                    completion?.TrySetResult(FinishType.Completed);
                     break;
                 }
-                await UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
+                await UniRx.Async.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
             }
-            completion?.TrySetResult();
         }
 
         abstract protected void Apply();
@@ -105,13 +116,13 @@ namespace TSKT.Tweens
         }
 
 
-        public UniTask UniTask
+        public UniTask<FinishType> UniTask
         {
             get
             {
                 if (completion == null)
                 {
-                    completion = new UniTaskCompletionSource();
+                    completion = new UniTaskCompletionSource<FinishType>();
                 }
                 return completion.Task;
             }
@@ -120,7 +131,7 @@ namespace TSKT.Tweens
         public void Halt()
         {
             Halted = true;
-            completion?.TrySetResult();
+            completion?.TrySetResult(FinishType.Halted);
         }
     }
 }
