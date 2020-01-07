@@ -38,6 +38,26 @@ namespace TSKT.Tweens
             }
         }
 
+        public Color(Graphic target, float duration, bool scaledTime) : base(target.gameObject, duration, scaledTime: scaledTime)
+        {
+            targetGraphic = target;
+        }
+
+        public Color(SpriteRenderer target, float duration, bool scaledTime) : base(target.gameObject, duration, scaledTime: scaledTime)
+        {
+            targetSprite = target;
+        }
+
+        public Color(MeshRenderer target, float duration, bool scaledTime) : base(target.gameObject, duration, scaledTime: scaledTime)
+        {
+            meshRenderer = target;
+        }
+
+        public Color(CanvasGroup target, float duration, bool scaledTime) : base(target.gameObject, duration, scaledTime: scaledTime)
+        {
+            canvasGroup = target;
+        }
+
         public Color To(UnityEngine.Color value)
         {
             toAlpha = value.a;
