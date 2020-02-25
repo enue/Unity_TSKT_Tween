@@ -22,6 +22,12 @@ namespace TSKT
             return scale;
         }
 
+        public static Rotate Rotate(GameObject target, float duration, bool scaledTime = true)
+        {
+            Debug.Assert(target.activeInHierarchy, "game object must be active : " + target.name);
+            return new Rotate(target, duration, scaledTime: scaledTime);
+        }
+
         public static Tweens.Color Color(GameObject target, float duration, bool scaledTime = true)
         {
             Debug.Assert(target.activeInHierarchy, "game object must be active : " + target.name);
