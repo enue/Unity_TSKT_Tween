@@ -1,16 +1,11 @@
-# Unty_TSKT_Tween
+# install
 
-Packages/manifest.json
+Unity Package Manager
 
-```json
-{
-  "dependencies": {
-    "com.github.enue.tskt_tween": "https://github.com/enue/Unity_TSKT_Tween.git",
-    "com.github.enue.tskt_math": "https://github.com/enue/Unity_TSKT_Math.git",
-  }
-}
-```
-## require
-UniTask
+add package from git url
 
-https://github.com/Cysharp/UniTask
++ `https://github.com/Cysharp/UniTask.git?path=Assets/UniRx.Async`
++ `https://github.com/enue/Unity_TSKT_Container.git?path=Assets/Package`
++ `https://github.com/enue/Unity_TSKT_Math.git?path=Assets/Package`
++ `https://github.com/enue/Unity_TSKT_Tween.git?path=Assets/Package`
+
