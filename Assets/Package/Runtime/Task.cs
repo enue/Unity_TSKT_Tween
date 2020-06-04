@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UniRx.Async;
+using Cysharp.Threading.Tasks;
 
 namespace TSKT.Tweens
 {
@@ -38,8 +38,8 @@ namespace TSKT.Tweens
                 startedTime = Time.realtimeSinceStartup;
             }
 
-            UniRx.Async.UniTask.DelayFrame(0, PlayerLoopTiming.PostLateUpdate)
-                .ContinueWith(_ => Update())
+            Cysharp.Threading.Tasks.UniTask.DelayFrame(0, PlayerLoopTiming.PostLateUpdate)
+                .ContinueWith(() => Update())
                 .Forget();
         }
 
@@ -70,7 +70,7 @@ namespace TSKT.Tweens
                     completion?.TrySetResult(FinishType.Completed);
                     break;
                 }
-                await UniRx.Async.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
+                await Cysharp.Threading.Tasks.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
             }
         }
 
