@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TSKT.Tweens
 {
-    public class Value : Task
+    public class Value : StandaloneTask
     {
         public delegate void CallbackAction(float time);
 
@@ -14,7 +14,7 @@ namespace TSKT.Tweens
         Func<float, float, float, float> function = EasingFunction.Linear;
         Action<float> callback;
 
-        public Value(GameObject target, float duration, bool scaledTime) : base(target, duration, scaledTime: scaledTime)
+        public Value(float duration, bool scaledTime) : base(duration, scaledTime: scaledTime)
         {
         }
 

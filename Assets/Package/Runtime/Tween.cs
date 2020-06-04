@@ -82,11 +82,9 @@ namespace TSKT
             return soundVolume;
         }
 
-        public static Value Value(GameObject target, float duration, bool scaledTime = true)
+        public static Value Value(float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.activeInHierarchy, "game object must be active : " + target.name);
-            var value = new Value(target, duration, scaledTime: scaledTime);
-            return value;
+            return new Value(duration, scaledTime: scaledTime);
         }
     }
 }
