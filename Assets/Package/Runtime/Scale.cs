@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#nullable enable
 
 namespace TSKT.Tweens
 {
@@ -43,8 +44,7 @@ namespace TSKT.Tweens
             {
                 From(Target.transform.localScale);
             }
-
-            var x = function.Invoke(from.Value.x, to.Value.x, NormalizdElapsedTime);
+            var x = function.Invoke(from!.Value.x, to!.Value.x, NormalizdElapsedTime);
             var y = function.Invoke(from.Value.y, to.Value.y, NormalizdElapsedTime);
             var z = function.Invoke(from.Value.z, to.Value.z, NormalizdElapsedTime);
 

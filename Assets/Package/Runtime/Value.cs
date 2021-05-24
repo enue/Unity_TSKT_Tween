@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#nullable enable
 
 namespace TSKT.Tweens
 {
@@ -12,7 +13,7 @@ namespace TSKT.Tweens
         float to;
         float from;
         Func<float, float, float, float> function = EasingFunction.Linear;
-        Action<float> callback;
+        Action<float>? callback;
 
         public Value(float duration, bool scaledTime) : base(duration, scaledTime: scaledTime)
         {

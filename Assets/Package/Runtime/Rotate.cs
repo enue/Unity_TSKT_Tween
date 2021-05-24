@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#nullable enable
 
 namespace TSKT.Tweens
 {
@@ -66,7 +67,7 @@ namespace TSKT.Tweens
             }
 
             var t = function.Invoke(0f, 1f, NormalizdElapsedTime);
-            var rotation = Quaternion.LerpUnclamped(from.Value, to.Value, t);
+            var rotation = Quaternion.LerpUnclamped(from!.Value, to!.Value, t);
 
             if (local)
             {

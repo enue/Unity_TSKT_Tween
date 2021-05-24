@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+#nullable enable
 
 namespace TSKT.Tweens
 {
@@ -17,7 +18,7 @@ namespace TSKT.Tweens
         readonly float startedTime;
         readonly float duration;
         readonly bool scaledTime;
-        UniTaskCompletionSource<FinishType> completion;
+        UniTaskCompletionSource<FinishType>? completion;
         public bool Halted { get; private set; }
 
         public StandaloneTask(float duration, bool scaledTime)

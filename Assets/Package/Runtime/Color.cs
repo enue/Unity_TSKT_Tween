@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+#nullable enable
 
 namespace TSKT.Tweens
 {
     public class Color : Task
     {
-        Graphic targetGraphic;
-        SpriteRenderer targetSprite;
-        MeshRenderer meshRenderer;
-        CanvasGroup canvasGroup;
+        Graphic? targetGraphic;
+        SpriteRenderer? targetSprite;
+        MeshRenderer? meshRenderer;
+        CanvasGroup? canvasGroup;
 
         float? toAlpha;
         float? toRed;
@@ -103,19 +104,19 @@ namespace TSKT.Tweens
             {
                 if (targetGraphic)
                 {
-                    To(targetGraphic.color);
+                    To(targetGraphic!.color);
                 }
                 else if (targetSprite)
                 {
-                    To(targetSprite.color);
+                    To(targetSprite!.color);
                 }
                 else if (meshRenderer)
                 {
-                    To(meshRenderer.material.color);
+                    To(meshRenderer!.material.color);
                 }
                 else if (canvasGroup)
                 {
-                    To(new UnityEngine.Color(1f, 1f, 1f, canvasGroup.alpha));
+                    To(new UnityEngine.Color(1f, 1f, 1f, canvasGroup!.alpha));
                 }
             }
             if (!fromAlpha.HasValue
@@ -125,38 +126,38 @@ namespace TSKT.Tweens
             {
                 if (targetGraphic)
                 {
-                    From(targetGraphic.color);
+                    From(targetGraphic!.color);
                 }
                 else if (targetSprite)
                 {
-                    From(targetSprite.color);
+                    From(targetSprite!.color);
                 }
                 else if (meshRenderer)
                 {
-                    From(meshRenderer.material.color);
+                    From(meshRenderer!.material.color);
                 }
                 else if (canvasGroup)
                 {
-                    From(new UnityEngine.Color(1f, 1f, 1f, canvasGroup.alpha));
+                    From(new UnityEngine.Color(1f, 1f, 1f, canvasGroup!.alpha));
                 }
             }
 
             var color = UnityEngine.Color.white;
             if (targetGraphic)
             {
-                color = targetGraphic.color;
+                color = targetGraphic!.color;
             }
             if (targetSprite)
             {
-                color = targetSprite.color;
+                color = targetSprite!.color;
             }
             if (meshRenderer)
             {
-                color = meshRenderer.material.color;
+                color = meshRenderer!.material.color;
             }
             if (canvasGroup)
             {
-                color = new UnityEngine.Color(1f, 1f, 1f, canvasGroup.alpha);
+                color = new UnityEngine.Color(1f, 1f, 1f, canvasGroup!.alpha);
             }
 
             if (fromAlpha.HasValue && toAlpha.HasValue)
@@ -178,19 +179,19 @@ namespace TSKT.Tweens
 
             if (targetGraphic)
             {
-                targetGraphic.color = color;
+                targetGraphic!.color = color;
             }
             else if (targetSprite)
             {
-                targetSprite.color = color;
+                targetSprite!.color = color;
             }
             else if (meshRenderer)
             {
-                meshRenderer.material.color = color;
+                meshRenderer!.material.color = color;
             }
             else if (canvasGroup)
             {
-                canvasGroup.alpha = color.a;
+                canvasGroup!.alpha = color.a;
             }
         }
     }
