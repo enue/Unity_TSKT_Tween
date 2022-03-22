@@ -7,7 +7,7 @@ using Cysharp.Threading.Tasks;
 
 namespace TSKT.Tweens
 {
-    public abstract class Task
+    public abstract class Task : ITask
     {
         public enum FinishType
         {
