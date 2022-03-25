@@ -61,6 +61,12 @@ namespace TSKT
             return new SoundVolume(target, duration, scaledTime: scaledTime);
         }
 
+        public static Manipulator<T> Manipulate<T>(T target, float duration, bool scaledTime = true)
+            where T : Component
+        {
+            return new Manipulator<T>(target, duration, scaledTime: scaledTime);
+        }
+
         public static Value Value(float duration, bool scaledTime = true)
         {
             return new Value(duration, scaledTime: scaledTime);
