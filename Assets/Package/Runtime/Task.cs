@@ -26,6 +26,7 @@ namespace TSKT.Tweens
 
         public Task(GameObject target, float duration, bool scaledTime)
         {
+            UnityEngine.Assertions.Assert.IsTrue(target.activeInHierarchy, "game object must be active : " + target.name);
             this.duration = duration;
             this.scaledTime = scaledTime;
             Target = target;

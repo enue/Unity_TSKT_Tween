@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TSKT.Tweens;
 using UnityEngine;
-using TSKT.Tweens;
-using System.Linq;
 #nullable enable
 
 namespace TSKT
@@ -11,64 +8,47 @@ namespace TSKT
     {
         public static Move Move(GameObject target, float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.activeInHierarchy, "game object must be active : " + target.name);
-            var move = new Move(target, duration, scaledTime: scaledTime);
-            return move;
+            return new Move(target, duration, scaledTime: scaledTime);
         }
 
         public static Scale Scale(GameObject target, float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.activeInHierarchy, "game object must be active : " + target.name);
-            var scale = new Scale(target, duration, scaledTime: scaledTime);
-            return scale;
+            return new Scale(target, duration, scaledTime: scaledTime);
         }
 
         public static Rotate Rotate(GameObject target, float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.activeInHierarchy, "game object must be active : " + target.name);
             return new Rotate(target, duration, scaledTime: scaledTime);
         }
 
         public static Tweens.Color Color(GameObject target, float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.activeInHierarchy, "game object must be active : " + target.name);
-            var color = new Tweens.Color(target, duration, scaledTime: scaledTime);
-            return color;
+            return new Tweens.Color(target, duration, scaledTime: scaledTime);
         }
 
         public static Tweens.Color Color(SpriteRenderer target, float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.gameObject.activeInHierarchy, "game object must be active : " + target.name);
-            var color = new Tweens.Color(target, duration, scaledTime: scaledTime);
-            return color;
+            return new Tweens.Color(target, duration, scaledTime: scaledTime);
         }
 
         public static Tweens.Color Color(UnityEngine.UI.Graphic target, float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.gameObject.activeInHierarchy, "game object must be active : " + target.name);
-            var color = new Tweens.Color(target, duration, scaledTime: scaledTime);
-            return color;
+            return new Tweens.Color(target, duration, scaledTime: scaledTime);
         }
 
         public static Tweens.Color Color(MeshRenderer target, float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.gameObject.activeInHierarchy, "game object must be active : " + target.name);
-            var color = new Tweens.Color(target, duration, scaledTime: scaledTime);
-            return color;
+            return new Tweens.Color(target, duration, scaledTime: scaledTime);
         }
 
         public static Tweens.Color Color(CanvasGroup target, float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.gameObject.activeInHierarchy, "game object must be active : " + target.name);
-            var color = new Tweens.Color(target, duration, scaledTime: scaledTime);
-            return color;
+            return new Tweens.Color(target, duration, scaledTime: scaledTime);
         }
 
         public static ShakePosition ShakePosition(GameObject target, float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.activeInHierarchy, "game object must be active : " + target.name);
-            var color = new ShakePosition(target, duration, scaledTime: scaledTime);
-            return color;
+            return new ShakePosition(target, duration, scaledTime: scaledTime);
         }
 
         public static SoundVolume SoundVolume(GameObject target, float duration, bool scaledTime = true)
@@ -78,9 +58,7 @@ namespace TSKT
 
         public static SoundVolume SoundVolume(AudioSource target, float duration, bool scaledTime = true)
         {
-            Debug.Assert(target.gameObject.activeInHierarchy, "game object must be active : " + target.name);
-            var soundVolume = new SoundVolume(target, duration, scaledTime: scaledTime);
-            return soundVolume;
+            return new SoundVolume(target, duration, scaledTime: scaledTime);
         }
 
         public static Value Value(float duration, bool scaledTime = true)
