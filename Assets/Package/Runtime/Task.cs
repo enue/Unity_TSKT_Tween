@@ -19,7 +19,7 @@ namespace TSKT.Tweens
 
         protected GameObject Target { get; private set; }
         readonly float startedTime;
-        readonly float duration;
+        public float Duration { get; private set; }
         readonly bool scaledTime;
         UniTaskCompletionSource<FinishType>? completion;
         public bool Halted { get; private set; }
@@ -27,7 +27,7 @@ namespace TSKT.Tweens
         public Task(GameObject target, float duration, bool scaledTime)
         {
             UnityEngine.Assertions.Assert.IsTrue(target.activeInHierarchy, "game object must be active : " + target.name);
-            this.duration = duration;
+            Duration = duration;
             this.scaledTime = scaledTime;
             Target = target;
 
@@ -41,7 +41,7 @@ namespace TSKT.Tweens
             }
 
             Cysharp.Threading.Tasks.UniTask.DelayFrame(0, PlayerLoopTiming.PostLateUpdate)
-                .ContinueWith(() => Update())
+                .ContinueWith(Update)
                 .Forget();
         }
 
@@ -67,7 +67,7 @@ namespace TSKT.Tweens
 
                 Apply();
 
-                if (ElapsedTime >= duration)
+                if (ElapsedTime >= Duration)
                 {
                     completion?.TrySetResult(FinishType.Completed);
                     break;
@@ -83,26 +83,26 @@ namespace TSKT.Tweens
             get
             {
                 return Halted
-                    || (ElapsedTime >= duration)
+                    || (ElapsedTime >= Duration)
                     || !Target
                     || !Target.activeInHierarchy;
             }
         }
 
-        protected float NormalizdElapsedTime
+        public float NormalizdElapsedTime
         {
             get
             {
-                if (duration == 0f)
+                if (Duration == 0f)
                 {
                     return 1f;
                 }
 
-                return Mathf.Clamp01(ElapsedTime / duration);
+                return Mathf.Clamp01(ElapsedTime / Duration);
             }
         }
 
-        float ElapsedTime
+        public float ElapsedTime
         {
             get
             {

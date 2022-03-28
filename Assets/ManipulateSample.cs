@@ -45,13 +45,13 @@ namespace TSKT
             }
 
             Tween.Manipulate(target.transform, duration: (float)t[^1])
-                .Action((_time, target) =>
+                .Action(_ =>
                 {
                     var p = new Vector3(
-                        fx.Evaluate(_time * fx.Duration),
-                        fy.Evaluate(_time * fy.Duration),
-                        fz.Evaluate(_time * fz.Duration));
-                    target.position = p;
+                        fx.Evaluate(_.NormalziedElapsedTime * fx.Duration),
+                        fy.Evaluate(_.NormalziedElapsedTime * fy.Duration),
+                        fz.Evaluate(_.NormalziedElapsedTime * fz.Duration));
+                    _.Target.position = p;
                 });
         }
 
