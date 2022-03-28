@@ -37,13 +37,13 @@ namespace TSKT
             var fz = CubicFunction.Solve4Points((t[0], z[0]), (t[1], z[1]), (t[2], z[2]), (t[3], z[3]));
 
             Tween.Manipulate(target.transform, duration: (float)t[^1])
-                .Action((_time, target) =>
+                .Action(_ =>
                 {
                     var p = new Vector3(
-                        fx.Evaluate(_time * 3f),
-                        fy.Evaluate(_time * 3f),
-                        fz.Evaluate(_time * 3f));
-                    target.position = p;
+                        fx.Evaluate(_.NormalziedElapsedTime * 3f),
+                        fy.Evaluate(_.NormalziedElapsedTime * 3f),
+                        fz.Evaluate(_.NormalziedElapsedTime * 3f));
+                    _.Target.position = p;
                 });
         }
     }

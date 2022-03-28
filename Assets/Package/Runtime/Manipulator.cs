@@ -9,14 +9,14 @@ namespace TSKT.Tweens
     public class Manipulator<T> : Task
         where T : UnityEngine.Component
     {
-        Action<float, T>? action;
+        Action<ManipulatingHandler<T>>? action;
         readonly T target;
 
         public Manipulator(T target, float duration, bool scaledTime) : base(target.gameObject, duration, scaledTime: scaledTime)
         {
             this.target = target;
         }
-        public Manipulator<T> Action(Action<float, T> value)
+        public Manipulator<T> Action(Action<ManipulatingHandler<T>> value)
         {
             action = value;
             return this;
@@ -24,7 +24,21 @@ namespace TSKT.Tweens
 
         protected override void Apply()
         {
-            action?.Invoke(NormalizdElapsedTime, target);
+            action?.Invoke(new ManipulatingHandler<T>(this, target));
+        }
+    }
+    public readonly struct ManipulatingHandler<T>
+    {
+        readonly Task task;
+        public T Target { get; }
+        public float NormalziedElapsedTime => task.NormalizdElapsedTime;
+        public float Duration => task.Duration;
+        public float ElapsedTime => task.ElapsedTime;
+
+        public ManipulatingHandler(Task task, T target)
+        {
+            this.task = task;
+            Target = target;
         }
     }
 }
