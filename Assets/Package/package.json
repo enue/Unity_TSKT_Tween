@@ -1,14 +1,13 @@
 {
     "name": "com.github.enue.tskt_tween",
     "displayName": "TSKT Tween",
-    "version": "0.6.0",
-    "unity": "2021.2",
+    "version": "0.6.1",
+    "unity": "2022.2",
     "description": "",
     "keywords": [],
     "category": "",
     "dependencies": {
-        "com.cysharp.unitask": "2.0.13",
-        "com.github.enue.tskt_container": "0.5.2",
-        "com.github.enue.tskt_math": "0.8.3"
+        "com.cysharp.unitask": "2.3.3",
+        "com.github.enue.tskt_math": "0.21.5"
     }
 }
