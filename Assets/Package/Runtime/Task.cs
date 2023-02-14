@@ -1,9 +1,9 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-#nullable enable
 
 namespace TSKT.Tweens
 {
@@ -40,15 +40,15 @@ namespace TSKT.Tweens
                 startedTime = Time.realtimeSinceStartup;
             }
 
-            Cysharp.Threading.Tasks.UniTask.DelayFrame(0, PlayerLoopTiming.PostLateUpdate)
-                .ContinueWith(Update)
-                .Forget();
+            Update().Forget();
         }
 
         async UniTask Update()
         {
             while (true)
             {
+                await Cysharp.Threading.Tasks.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
+
                 if (Halted)
                 {
                     completion?.TrySetResult(FinishType.Halted);
@@ -72,11 +72,10 @@ namespace TSKT.Tweens
                     completion?.TrySetResult(FinishType.Completed);
                     break;
                 }
-                await Cysharp.Threading.Tasks.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
             }
         }
 
-        abstract protected void Apply();
+        protected abstract void Apply();
 
         public bool Finished
         {
@@ -122,10 +121,7 @@ namespace TSKT.Tweens
         {
             get
             {
-                if (completion == null)
-                {
-                    completion = new UniTaskCompletionSource<FinishType>();
-                }
+                completion ??= new UniTaskCompletionSource<FinishType>();
                 return completion.Task;
             }
         }

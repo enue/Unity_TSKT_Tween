@@ -27,11 +27,11 @@ namespace TSKT.Tweens
 
         public Color(GameObject target, float duration, bool scaledTime) : base(target, duration, scaledTime: scaledTime)
         {
-            if (!(targetGraphic = target.GetComponent<Graphic>()))
+            if (!target.TryGetComponent<Graphic>(out targetGraphic))
             {
-                if (!(targetSprite = target.GetComponent<SpriteRenderer>()))
+                if (!target.TryGetComponent<SpriteRenderer>(out targetSprite))
                 {
-                    if (!(meshRenderer = target.GetComponent<MeshRenderer>()))
+                    if (!target.TryGetComponent<MeshRenderer>(out meshRenderer))
                     {
                         canvasGroup = target.GetComponent<CanvasGroup>();
                     }

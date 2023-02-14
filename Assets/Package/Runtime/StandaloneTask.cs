@@ -35,13 +35,12 @@ namespace TSKT.Tweens
                 startedTime = Time.realtimeSinceStartup;
             }
 
-            Cysharp.Threading.Tasks.UniTask.DelayFrame(0, PlayerLoopTiming.PostLateUpdate)
-                .ContinueWith(() => Update())
-                .Forget();
+            Update().Forget();
         }
 
         async UniTask Update()
         {
+            await Cysharp.Threading.Tasks.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
             while (true)
             {
                 if (Halted)
@@ -57,7 +56,6 @@ namespace TSKT.Tweens
                     completion?.TrySetResult(FinishType.Completed);
                     break;
                 }
-                await Cysharp.Threading.Tasks.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
             }
         }
 
