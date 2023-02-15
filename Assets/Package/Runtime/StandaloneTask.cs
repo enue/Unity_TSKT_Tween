@@ -40,9 +40,10 @@ namespace TSKT.Tweens
 
         async UniTask Update()
         {
-            await Cysharp.Threading.Tasks.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
             while (true)
             {
+                await Cysharp.Threading.Tasks.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
+
                 if (Halted)
                 {
                     completion?.TrySetResult(FinishType.Halted);
