@@ -21,6 +21,11 @@ namespace TSKT
             return new Rotate(target, duration, scaledTime: scaledTime);
         }
 
+        public static PositionAndRotation MoveAndRotate(GameObject target, float duration, bool scaledTime = true)
+        {
+            return new PositionAndRotation(target, duration, scaledTime: scaledTime);
+        }
+
         public static Tweens.Color Color(GameObject target, float duration, bool scaledTime = true)
         {
             return new Tweens.Color(target, duration, scaledTime: scaledTime);
