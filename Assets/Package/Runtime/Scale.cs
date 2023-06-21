@@ -17,15 +17,15 @@ namespace TSKT.Tweens
         Vector3? from;
         Func<float, float, float, float> function = EasingFunction.Cubic.EaseOut;
 
-        public Scale To(Vector3 position)
+        public Scale To(Vector3 to)
         {
-            to = position;
+            this.to = to;
             return this;
         }
 
-        public Scale From(Vector3 position)
+        public Scale From(Vector3 from)
         {
-            from = position;
+            this.from = from;
             return this;
         }
 
