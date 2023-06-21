@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 #nullable enable
 
@@ -46,6 +47,15 @@ namespace TSKT.Tweens
         protected override void Apply()
         {
             callback?.Invoke(function.Invoke(from, to, NormalizdElapsedTime));
+        }
+        public Value RegisterCancellatinToken(CancellationToken cancellationToken)
+        {
+            cancellationToken.Register(() =>
+            {
+                Halt();
+            });
+
+            return this;
         }
     }
 }
