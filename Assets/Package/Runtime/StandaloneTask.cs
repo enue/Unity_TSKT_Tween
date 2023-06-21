@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 #nullable enable
 
 namespace TSKT.Tweens
@@ -109,6 +110,19 @@ namespace TSKT.Tweens
                     completion = new UniTaskCompletionSource<FinishType>();
                 }
                 return completion.Task;
+            }
+        }
+
+        public Awaitable<FinishType> Awaitable
+        {
+            get
+            {
+                return GetAwaitable();
+
+                async Awaitable<FinishType> GetAwaitable()
+                {
+                    return await UniTask;
+                }
             }
         }
 

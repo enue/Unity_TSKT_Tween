@@ -48,7 +48,7 @@ namespace TSKT.Tweens
         {
             callback?.Invoke(function.Invoke(from, to, NormalizdElapsedTime));
         }
-        public Value RegisterCancellatinToken(CancellationToken cancellationToken)
+        public Value RegisterCancellationToken(CancellationToken cancellationToken)
         {
             cancellationToken.Register(() =>
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 #nullable enable
 
@@ -49,6 +50,15 @@ namespace TSKT.Tweens
             var z = function.Invoke(from.Value.z, to.Value.z, NormalizdElapsedTime);
 
             Target.transform.localScale = new Vector3(x, y, z);
+        }
+        public Scale RegisterCancellationToken(CancellationToken cancellationToken)
+        {
+            cancellationToken.Register(() =>
+            {
+                Halt();
+            });
+
+            return this;
         }
     }
 }

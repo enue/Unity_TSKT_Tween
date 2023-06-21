@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 namespace TSKT.Tweens
@@ -82,6 +83,15 @@ namespace TSKT.Tweens
             {
                 Target.transform.SetPositionAndRotation(position, rotation);
             }
+        }
+        public PositionAndRotation RegisterCancellationToken(CancellationToken cancellationToken)
+        {
+            cancellationToken.Register(() =>
+            {
+                Halt();
+            });
+
+            return this;
         }
     }
 }

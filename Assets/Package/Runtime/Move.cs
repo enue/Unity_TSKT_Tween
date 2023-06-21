@@ -1,8 +1,9 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
-#nullable enable
 
 namespace TSKT.Tweens
 {
@@ -165,6 +166,15 @@ namespace TSKT.Tweens
             {
                 Target.transform.position = position;
             }
+        }
+        public Move RegisterCancellationToken(CancellationToken cancellationToken)
+        {
+            cancellationToken.Register(() =>
+            {
+                Halt();
+            });
+
+            return this;
         }
     }
 }

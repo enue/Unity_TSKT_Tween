@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 #nullable enable
 
@@ -48,6 +49,15 @@ namespace TSKT.Tweens
             }
 
             targetAudio.volume = function.Invoke(from.Value, to.Value, NormalizdElapsedTime);
+        }
+        public SoundVolume RegisterCancellationToken(CancellationToken cancellationToken)
+        {
+            cancellationToken.Register(() =>
+            {
+                Halt();
+            });
+
+            return this;
         }
     }
 }

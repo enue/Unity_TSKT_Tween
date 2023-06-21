@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 #nullable enable
 
@@ -62,6 +63,15 @@ namespace TSKT.Tweens
             {
                 Target.transform.position = initialPosition.Value + offset;
             }
+        }
+        public ShakePosition RegisterCancellationToken(CancellationToken cancellationToken)
+        {
+            cancellationToken.Register(() =>
+            {
+                Halt();
+            });
+
+            return this;
         }
     }
 }

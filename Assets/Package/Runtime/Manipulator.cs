@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 #nullable enable
 
@@ -25,6 +26,15 @@ namespace TSKT.Tweens
         protected override void Apply()
         {
             action?.Invoke(new ManipulatingHandler<T>(this, target));
+        }
+        public Manipulator<T> RegisterCancellationToken(CancellationToken cancellationToken)
+        {
+            cancellationToken.Register(() =>
+            {
+                Halt();
+            });
+
+            return this;
         }
     }
     public readonly struct ManipulatingHandler<T>

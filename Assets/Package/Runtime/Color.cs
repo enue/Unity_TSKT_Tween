@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 #nullable enable
@@ -193,6 +194,15 @@ namespace TSKT.Tweens
             {
                 canvasGroup!.alpha = color.a;
             }
+        }
+        public Color RegisterCancellationToken(CancellationToken cancellationToken)
+        {
+            cancellationToken.Register(() =>
+            {
+                Halt();
+            });
+
+            return this;
         }
     }
 }
