@@ -14,7 +14,7 @@ namespace TSKT.Tweens
         {
             Completed,
             Halted,
-            DisbaledGameObject,
+            DisabledGameObject,
             DestroyedGameObject,
         }
 
@@ -62,7 +62,7 @@ namespace TSKT.Tweens
                 }
                 if (!Target.activeInHierarchy)
                 {
-                    completion?.TrySetResult(FinishType.DisbaledGameObject);
+                    completion?.TrySetResult(FinishType.DisabledGameObject);
                     break;
                 }
 

@@ -41,7 +41,7 @@ namespace TSKT.Tweens
     {
         readonly Task task;
         public T Target { get; }
-        public float NormalziedElapsedTime => task.NormalizdElapsedTime;
+        public float NormalizedElapsedTime => task.NormalizdElapsedTime;
         public float Duration => task.Duration;
         public float ElapsedTime => task.ElapsedTime;
 

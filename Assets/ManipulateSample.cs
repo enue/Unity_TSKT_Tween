@@ -40,9 +40,9 @@ namespace TSKT
                 .Action(_ =>
                 {
                     var p = new Vector3(
-                        fx.Evaluate(_.NormalziedElapsedTime * 3f),
-                        fy.Evaluate(_.NormalziedElapsedTime * 3f),
-                        fz.Evaluate(_.NormalziedElapsedTime * 3f));
+                        fx.Evaluate(_.NormalizedElapsedTime * 3f),
+                        fy.Evaluate(_.NormalizedElapsedTime * 3f),
+                        fz.Evaluate(_.NormalizedElapsedTime * 3f));
                     _.Target.position = p;
                 });
         }
