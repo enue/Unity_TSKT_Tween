@@ -48,7 +48,7 @@ namespace TSKT.Tweens
                 from = targetAudio.volume;
             }
 
-            targetAudio.volume = function.Invoke(from.Value, to.Value, NormalizdElapsedTime);
+            targetAudio.volume = function.Invoke(from.Value, to.Value, NormalizedElapsedTime);
         }
         public SoundVolume RegisterCancellationToken(CancellationToken cancellationToken)
         {

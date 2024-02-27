@@ -71,7 +71,7 @@ namespace TSKT.Tweens
                 }
             }
 
-            var t = function.Invoke(0f, 1f, NormalizdElapsedTime);
+            var t = function.Invoke(0f, 1f, NormalizedElapsedTime);
             var rotation = Quaternion.LerpUnclamped(from!.Value.rotation, to!.Value.rotation, t);
             var position = Vector3.LerpUnclamped(from!.Value.position, to!.Value.position, t);
 

@@ -72,7 +72,7 @@ namespace TSKT.Tweens
             }
         }
 
-        protected float NormalizdElapsedTime
+        protected float NormalizedElapsedTime
         {
             get
             {

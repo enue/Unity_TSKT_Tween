@@ -89,7 +89,7 @@ namespace TSKT.Tweens
             }
         }
 
-        public float NormalizdElapsedTime
+        public float NormalizedElapsedTime
         {
             get
             {

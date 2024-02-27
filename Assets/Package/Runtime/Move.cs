@@ -143,15 +143,15 @@ namespace TSKT.Tweens
 
             if (toX.HasValue && fromX.HasValue)
             {
-                position.x = function.Invoke(fromX.Value, toX.Value, NormalizdElapsedTime);
+                position.x = function.Invoke(fromX.Value, toX.Value, NormalizedElapsedTime);
             }
             if (toY.HasValue && fromY.HasValue)
             {
-                position.y = function.Invoke(fromY.Value, toY.Value, NormalizdElapsedTime);
+                position.y = function.Invoke(fromY.Value, toY.Value, NormalizedElapsedTime);
             }
             if (toZ.HasValue && fromZ.HasValue)
             {
-                position.z = function.Invoke(fromZ.Value, toZ.Value, NormalizdElapsedTime);
+                position.z = function.Invoke(fromZ.Value, toZ.Value, NormalizedElapsedTime);
             }
 
             if (anchoredPosition)

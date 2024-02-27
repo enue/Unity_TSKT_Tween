@@ -46,7 +46,7 @@ namespace TSKT.Tweens
 
         protected override void Apply()
         {
-            callback?.Invoke(function.Invoke(from, to, NormalizdElapsedTime));
+            callback?.Invoke(function.Invoke(from, to, NormalizedElapsedTime));
         }
         public Value RegisterCancellationToken(CancellationToken cancellationToken)
         {

@@ -163,19 +163,19 @@ namespace TSKT.Tweens
 
             if (fromAlpha.HasValue && toAlpha.HasValue)
             {
-                color.a = function.Invoke(fromAlpha.Value, toAlpha.Value, NormalizdElapsedTime);
+                color.a = function.Invoke(fromAlpha.Value, toAlpha.Value, NormalizedElapsedTime);
             }
             if (fromRed.HasValue && toRed.HasValue)
             {
-                color.r = function.Invoke(fromRed.Value, toRed.Value, NormalizdElapsedTime);
+                color.r = function.Invoke(fromRed.Value, toRed.Value, NormalizedElapsedTime);
             }
             if (fromGreen.HasValue && toGreen.HasValue)
             {
-                color.g = function.Invoke(fromGreen.Value, toGreen.Value, NormalizdElapsedTime);
+                color.g = function.Invoke(fromGreen.Value, toGreen.Value, NormalizedElapsedTime);
             }
             if (fromBlue.HasValue && toBlue.HasValue)
             {
-                color.b = function.Invoke(fromBlue.Value, toBlue.Value, NormalizdElapsedTime);
+                color.b = function.Invoke(fromBlue.Value, toBlue.Value, NormalizedElapsedTime);
             }
 
             if (targetGraphic)

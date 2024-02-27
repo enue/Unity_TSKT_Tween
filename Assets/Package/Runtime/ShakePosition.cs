@@ -49,7 +49,7 @@ namespace TSKT.Tweens
                 }
             }
 
-            var size = 1f - NormalizdElapsedTime;
+            var size = 1f - NormalizedElapsedTime;
             var offset = new Vector3(
                 UnityEngine.Random.Range(-size * amount.x, size * amount.x),
                 UnityEngine.Random.Range(-size * amount.y, size * amount.y),
