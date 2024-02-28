@@ -68,10 +68,7 @@ namespace TSKT.Tweens
         }
         public ShakePosition RegisterCancellationToken(CancellationToken cancellationToken)
         {
-            cancellationToken.Register(() =>
-            {
-                Halt();
-            });
+            cancellationToken.Register(Halt);
 
             return this;
         }

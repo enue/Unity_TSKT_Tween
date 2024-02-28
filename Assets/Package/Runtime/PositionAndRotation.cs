@@ -88,10 +88,7 @@ namespace TSKT.Tweens
         }
         public PositionAndRotation RegisterCancellationToken(CancellationToken cancellationToken)
         {
-            cancellationToken.Register(() =>
-            {
-                Halt();
-            });
+            cancellationToken.Register(Halt);
 
             return this;
         }

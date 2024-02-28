@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace TSKT.Tweens
 {
-    public class Value : StandaloneTask
+    public class Value : Task
     {
         public delegate void CallbackAction(float time);
 
@@ -16,7 +16,7 @@ namespace TSKT.Tweens
         Func<float, float, float, float> function = EasingFunction.Linear;
         Action<float>? callback;
 
-        public Value(float duration, bool scaledTime) : base(duration, scaledTime: scaledTime)
+        public Value(float duration, bool scaledTime) : base(null, default, duration, scaledTime: scaledTime)
         {
         }
 
@@ -50,10 +50,7 @@ namespace TSKT.Tweens
         }
         public Value RegisterCancellationToken(CancellationToken cancellationToken)
         {
-            cancellationToken.Register(() =>
-            {
-                Halt();
-            });
+            cancellationToken.Register(Halt);
 
             return this;
         }

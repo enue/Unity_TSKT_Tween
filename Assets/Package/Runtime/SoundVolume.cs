@@ -52,10 +52,7 @@ namespace TSKT.Tweens
         }
         public SoundVolume RegisterCancellationToken(CancellationToken cancellationToken)
         {
-            cancellationToken.Register(() =>
-            {
-                Halt();
-            });
+            cancellationToken.Register(Halt);
 
             return this;
         }

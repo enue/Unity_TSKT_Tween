@@ -54,10 +54,7 @@ namespace TSKT.Tweens
         }
         public Scale RegisterCancellationToken(CancellationToken cancellationToken)
         {
-            cancellationToken.Register(() =>
-            {
-                Halt();
-            });
+            cancellationToken.Register(Halt);
 
             return this;
         }

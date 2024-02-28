@@ -29,10 +29,7 @@ namespace TSKT.Tweens
         }
         public Manipulator<T> RegisterCancellationToken(CancellationToken cancellationToken)
         {
-            cancellationToken.Register(() =>
-            {
-                Halt();
-            });
+            cancellationToken.Register(Halt);
 
             return this;
         }

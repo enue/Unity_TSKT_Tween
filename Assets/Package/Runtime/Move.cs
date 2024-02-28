@@ -171,10 +171,7 @@ namespace TSKT.Tweens
         }
         public Move RegisterCancellationToken(CancellationToken cancellationToken)
         {
-            cancellationToken.Register(() =>
-            {
-                Halt();
-            });
+            cancellationToken.Register(Halt);
 
             return this;
         }

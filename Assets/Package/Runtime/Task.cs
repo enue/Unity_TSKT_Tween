@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace TSKT.Tweens
 {
-    public abstract class Task : ITask
+    public abstract class Task
     {
         public enum FinishType
         {
@@ -17,18 +17,21 @@ namespace TSKT.Tweens
             DestroyedGameObject,
         }
 
-        GameObject Target { get; }
+        readonly GameObject? target;
+        readonly bool hasTarget;
+        
         readonly float startedTime;
         public float Duration { get; }
         readonly bool scaledTime;
         AwaitableCompletionSource<FinishType>? completion;
         public bool Halted { get; private set; }
 
-        public Task(GameObject target, CancellationToken destroyCancellationToken, float duration, bool scaledTime)
+        public Task(GameObject? target, CancellationToken destroyCancellationToken, float duration, bool scaledTime)
         {
             Duration = duration;
             this.scaledTime = scaledTime;
-            Target = target;
+            this.target = target;
+            hasTarget = target;
 
             if (scaledTime)
             {
@@ -54,7 +57,7 @@ namespace TSKT.Tweens
                     {
                         break;
                     }
-                    if (!Target)
+                    if (hasTarget && !target)
                     {
                         completion?.TrySetResult(FinishType.DestroyedGameObject);
                         break;
@@ -83,7 +86,7 @@ namespace TSKT.Tweens
             {
                 return Halted
                     || (ElapsedTime >= Duration)
-                    || !Target;
+                    || (hasTarget && !target);
             }
         }
 
