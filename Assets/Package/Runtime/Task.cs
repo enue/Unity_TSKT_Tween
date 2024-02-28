@@ -14,20 +14,18 @@ namespace TSKT.Tweens
         {
             Completed,
             Halted,
-            DisabledGameObject,
             DestroyedGameObject,
         }
 
-        protected GameObject Target { get; private set; }
+        GameObject Target { get; }
         readonly float startedTime;
-        public float Duration { get; private set; }
+        public float Duration { get; }
         readonly bool scaledTime;
-        UniTaskCompletionSource<FinishType>? completion;
+        AwaitableCompletionSource<FinishType>? completion;
         public bool Halted { get; private set; }
 
-        public Task(GameObject target, float duration, bool scaledTime)
+        public Task(GameObject target, CancellationToken destroyCancellationToken, float duration, bool scaledTime)
         {
-            UnityEngine.Assertions.Assert.IsTrue(target.activeInHierarchy, "game object must be active : " + target.name);
             Duration = duration;
             this.scaledTime = scaledTime;
             Target = target;
@@ -41,38 +39,39 @@ namespace TSKT.Tweens
                 startedTime = Time.realtimeSinceStartup;
             }
 
-            Update().Forget();
+            _ = Update(destroyCancellationToken);
         }
 
-        async UniTask Update()
+        async Awaitable Update(CancellationToken destroyCancellationToken)
         {
-            while (true)
+            try
             {
-                await Cysharp.Threading.Tasks.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
+                while (true)
+                {
+                    await UnityEngine.Awaitable.EndOfFrameAsync(destroyCancellationToken);
 
-                if (Halted)
-                {
-                    completion?.TrySetResult(FinishType.Halted);
-                    break;
-                }
-                if (!Target)
-                {
-                    completion?.TrySetResult(FinishType.DestroyedGameObject);
-                    break;
-                }
-                if (!Target.activeInHierarchy)
-                {
-                    completion?.TrySetResult(FinishType.DisabledGameObject);
-                    break;
-                }
+                    if (Halted)
+                    {
+                        break;
+                    }
+                    if (!Target)
+                    {
+                        completion?.TrySetResult(FinishType.DestroyedGameObject);
+                        break;
+                    }
 
-                Apply();
+                    Apply();
 
-                if (ElapsedTime >= Duration)
-                {
-                    completion?.TrySetResult(FinishType.Completed);
-                    break;
+                    if (ElapsedTime >= Duration)
+                    {
+                        completion?.TrySetResult(FinishType.Completed);
+                        break;
+                    }
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                completion?.TrySetResult(FinishType.DestroyedGameObject);
             }
         }
 
@@ -84,8 +83,7 @@ namespace TSKT.Tweens
             {
                 return Halted
                     || (ElapsedTime >= Duration)
-                    || !Target
-                    || !Target.activeInHierarchy;
+                    || !Target;
             }
         }
 
@@ -118,25 +116,14 @@ namespace TSKT.Tweens
         }
 
 
-        public UniTask<FinishType> UniTask
-        {
-            get
-            {
-                completion ??= new UniTaskCompletionSource<FinishType>();
-                return completion.Task;
-            }
-        }
+        public UniTask<FinishType> UniTask => Awaitable.AsUniTask();
 
         public Awaitable<FinishType> Awaitable
         {
             get
             {
-                return GetAwaitable();
-
-                async Awaitable<FinishType> GetAwaitable()
-                {
-                    return await UniTask;
-                }
+                completion ??= new();
+                return completion.Awaitable;
             }
         }
 

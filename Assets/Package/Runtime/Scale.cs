@@ -9,14 +9,15 @@ namespace TSKT.Tweens
 {
     public class Scale : Task
     {
-        public Scale(GameObject target, float duration, bool scaledTime) : base(target, duration, scaledTime: scaledTime)
+        public Scale(GameObject target, float duration, bool scaledTime) : base(target, default, duration, scaledTime: scaledTime)
         {
+            transform = target.transform;
         }
 
         Vector3? to;
         Vector3? from;
         Func<float, float, float, float> function = EasingFunction.Cubic.EaseOut;
-
+        readonly Transform transform;
         public Scale To(Vector3 to)
         {
             this.to = to;
@@ -39,17 +40,17 @@ namespace TSKT.Tweens
         {
             if (!to.HasValue)
             {
-                To(Target.transform.localScale);
+                To(transform.localScale);
             }
             if (!from.HasValue)
             {
-                From(Target.transform.localScale);
+                From(transform.localScale);
             }
             var x = function.Invoke(from!.Value.x, to!.Value.x, NormalizedElapsedTime);
             var y = function.Invoke(from.Value.y, to.Value.y, NormalizedElapsedTime);
             var z = function.Invoke(from.Value.z, to.Value.z, NormalizedElapsedTime);
 
-            Target.transform.localScale = new Vector3(x, y, z);
+            transform.localScale = new Vector3(x, y, z);
         }
         public Scale RegisterCancellationToken(CancellationToken cancellationToken)
         {

@@ -10,10 +10,10 @@ namespace TSKT.Tweens
 {
     public class Color : Task
     {
-        Graphic? targetGraphic;
-        SpriteRenderer? targetSprite;
-        MeshRenderer? meshRenderer;
-        CanvasGroup? canvasGroup;
+        readonly Graphic? targetGraphic;
+        readonly SpriteRenderer? targetSprite;
+        readonly MeshRenderer? meshRenderer;
+        readonly CanvasGroup? canvasGroup;
 
         float? toAlpha;
         float? toRed;
@@ -26,7 +26,7 @@ namespace TSKT.Tweens
 
         Func<float, float, float, float> function = EasingFunction.Cubic.EaseOut;
 
-        public Color(GameObject target, float duration, bool scaledTime) : base(target, duration, scaledTime: scaledTime)
+        public Color(GameObject target, float duration, bool scaledTime) : base(target, default, duration, scaledTime: scaledTime)
         {
             if (!target.TryGetComponent<Graphic>(out targetGraphic))
             {
@@ -40,22 +40,22 @@ namespace TSKT.Tweens
             }
         }
 
-        public Color(Graphic target, float duration, bool scaledTime) : base(target.gameObject, duration, scaledTime: scaledTime)
+        public Color(Graphic target, float duration, bool scaledTime) : base(target.gameObject, target.destroyCancellationToken, duration, scaledTime: scaledTime)
         {
             targetGraphic = target;
         }
 
-        public Color(SpriteRenderer target, float duration, bool scaledTime) : base(target.gameObject, duration, scaledTime: scaledTime)
+        public Color(SpriteRenderer target, float duration, bool scaledTime) : base(target.gameObject, default, duration, scaledTime: scaledTime)
         {
             targetSprite = target;
         }
 
-        public Color(MeshRenderer target, float duration, bool scaledTime) : base(target.gameObject, duration, scaledTime: scaledTime)
+        public Color(MeshRenderer target, float duration, bool scaledTime) : base(target.gameObject, default, duration, scaledTime: scaledTime)
         {
             meshRenderer = target;
         }
 
-        public Color(CanvasGroup target, float duration, bool scaledTime) : base(target.gameObject, duration, scaledTime: scaledTime)
+        public Color(CanvasGroup target, float duration, bool scaledTime) : base(target.gameObject, default, duration, scaledTime: scaledTime)
         {
             canvasGroup = target;
         }

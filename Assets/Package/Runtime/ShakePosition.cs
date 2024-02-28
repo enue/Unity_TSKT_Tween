@@ -12,9 +12,11 @@ namespace TSKT.Tweens
         Vector3 amount;
         bool local;
         Vector3? initialPosition;
+        readonly Transform transform;
 
-        public ShakePosition(GameObject target, float duration, bool scaledTime) : base(target, duration, scaledTime: scaledTime)
+        public ShakePosition(GameObject target, float duration, bool scaledTime) : base(target, default, duration, scaledTime: scaledTime)
         {
+            transform = target.transform;
         }
 
         public ShakePosition Amount(Vector3 value)
@@ -41,11 +43,11 @@ namespace TSKT.Tweens
             {
                 if (local)
                 {
-                    initialPosition = Target.transform.localPosition;
+                    initialPosition = transform.localPosition;
                 }
                 else
                 {
-                    initialPosition = Target.transform.position;
+                    initialPosition = transform.position;
                 }
             }
 
@@ -57,11 +59,11 @@ namespace TSKT.Tweens
 
             if (local)
             {
-                Target.transform.localPosition = initialPosition.Value + offset;
+                transform.localPosition = initialPosition.Value + offset;
             }
             else
             {
-                Target.transform.position = initialPosition.Value + offset;
+                transform.position = initialPosition.Value + offset;
             }
         }
         public ShakePosition RegisterCancellationToken(CancellationToken cancellationToken)

@@ -9,14 +9,16 @@ namespace TSKT.Tweens
 {
     public class Rotate : Task
     {
-        public Rotate(GameObject target, float duration, bool scaledTime) : base(target, duration, scaledTime: scaledTime)
+        public Rotate(GameObject target, float duration, bool scaledTime) : base(target, default, duration, scaledTime: scaledTime)
         {
+            transform = target.transform;
         }
 
         bool local;
         Quaternion? to;
         Quaternion? from;
         Func<float, float, float, float> function = EasingFunction.Cubic.EaseOut;
+        readonly Transform transform;
 
         public Rotate To(Quaternion to)
         {
@@ -48,22 +50,22 @@ namespace TSKT.Tweens
             {
                 if (local)
                 {
-                    To(Target.transform.localRotation);
+                    To(transform.localRotation);
                 }
                 else
                 {
-                    To(Target.transform.rotation);
+                    To(transform.rotation);
                 }
             }
             if (!from.HasValue)
             {
                 if (local)
                 {
-                    From(Target.transform.localRotation);
+                    From(transform.localRotation);
                 }
                 else
                 {
-                    From(Target.transform.rotation);
+                    From(transform.rotation);
                 }
             }
 
@@ -72,11 +74,11 @@ namespace TSKT.Tweens
 
             if (local)
             {
-                Target.transform.localRotation = rotation;
+                transform.localRotation = rotation;
             }
             else
             {
-                Target.transform.rotation = rotation;
+                transform.rotation = rotation;
             }
         }
         public Rotate RegisterCancellationToken(CancellationToken cancellationToken)

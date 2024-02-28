@@ -9,10 +9,12 @@ namespace TSKT.Tweens
 {
     public class Move : Task
     {
-        public Move(GameObject target, float duration, bool scaledTime) : base(target, duration, scaledTime: scaledTime)
+        public Move(GameObject target, float duration, bool scaledTime) : base(target, default, duration, scaledTime: scaledTime)
         {
+            this.target = target.transform;
         }
 
+        readonly Transform target;
         bool anchoredPosition;
         bool local;
         float? toX;
@@ -98,15 +100,15 @@ namespace TSKT.Tweens
             {
                 if (anchoredPosition)
                 {
-                    To(((RectTransform)Target.transform).anchoredPosition3D);
+                    To(((RectTransform)target).anchoredPosition3D);
                 }
                 else if (local)
                 {
-                    To(Target.transform.localPosition);
+                    To(target.localPosition);
                 }
                 else
                 {
-                    To(Target.transform.position);
+                    To(target.position);
                 }
             }
             if (!fromX.HasValue
@@ -115,30 +117,30 @@ namespace TSKT.Tweens
             {
                 if (anchoredPosition)
                 {
-                    From(((RectTransform)Target.transform).anchoredPosition3D);
+                    From(((RectTransform)target).anchoredPosition3D);
                 }
                 else if (local)
                 {
-                    From(Target.transform.localPosition);
+                    From(target.localPosition);
                 }
                 else
                 {
-                    From(Target.transform.position);
+                    From(target.position);
                 }
             }
 
             Vector3 position;
             if (anchoredPosition)
             {
-                position = ((RectTransform)Target.transform).anchoredPosition3D;
+                position = ((RectTransform)target).anchoredPosition3D;
             }
             else if (local)
             {
-                position = Target.transform.localPosition;
+                position = target.localPosition;
             }
             else
             {
-                position = Target.transform.position;
+                position = target.position;
             }
 
             if (toX.HasValue && fromX.HasValue)
@@ -156,15 +158,15 @@ namespace TSKT.Tweens
 
             if (anchoredPosition)
             {
-                ((RectTransform)Target.transform).anchoredPosition3D = position;
+                ((RectTransform)target).anchoredPosition3D = position;
             }
             else if (local)
             {
-                Target.transform.localPosition = position;
+                target.localPosition = position;
             }
             else
             {
-                Target.transform.position = position;
+                target.position = position;
             }
         }
         public Move RegisterCancellationToken(CancellationToken cancellationToken)

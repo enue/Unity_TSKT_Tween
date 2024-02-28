@@ -19,7 +19,7 @@ namespace TSKT.Tweens
         readonly float startedTime;
         readonly float duration;
         readonly bool scaledTime;
-        UniTaskCompletionSource<FinishType>? completion;
+        AwaitableCompletionSource<FinishType>? completion;
         public bool Halted { get; private set; }
 
         public StandaloneTask(float duration, bool scaledTime)
@@ -36,18 +36,17 @@ namespace TSKT.Tweens
                 startedTime = Time.realtimeSinceStartup;
             }
 
-            Update().Forget();
+            _ = Update();
         }
 
-        async UniTask Update()
+        async Awaitable Update()
         {
             while (true)
             {
-                await Cysharp.Threading.Tasks.UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
+                await UnityEngine.Awaitable.EndOfFrameAsync();
 
                 if (Halted)
                 {
-                    completion?.TrySetResult(FinishType.Halted);
                     break;
                 }
 
@@ -101,28 +100,14 @@ namespace TSKT.Tweens
         }
 
 
-        public UniTask<FinishType> UniTask
-        {
-            get
-            {
-                if (completion == null)
-                {
-                    completion = new UniTaskCompletionSource<FinishType>();
-                }
-                return completion.Task;
-            }
-        }
+        public UniTask<FinishType> UniTask => Awaitable.AsUniTask();
 
         public Awaitable<FinishType> Awaitable
         {
             get
             {
-                return GetAwaitable();
-
-                async Awaitable<FinishType> GetAwaitable()
-                {
-                    return await UniTask;
-                }
+                completion ??= new AwaitableCompletionSource<FinishType>();
+                return completion.Awaitable;
             }
         }
 

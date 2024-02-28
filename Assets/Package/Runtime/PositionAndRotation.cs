@@ -9,14 +9,16 @@ namespace TSKT.Tweens
 {
     public class PositionAndRotation : Task
     {
-        public PositionAndRotation(GameObject target, float duration, bool scaledTime) : base(target, duration, scaledTime: scaledTime)
+        public PositionAndRotation(GameObject target, float duration, bool scaledTime) : base(target, default, duration, scaledTime: scaledTime)
         {
+            transform = target.transform;
         }
 
         bool local;
         (Vector3 position, Quaternion rotation)? to;
         (Vector3 position, Quaternion rotation)? from;
         Func<float, float, float, float> function = EasingFunction.Cubic.EaseOut;
+        readonly Transform transform;
 
         public PositionAndRotation To(Vector3 position, Quaternion rotation)
         {
@@ -48,12 +50,12 @@ namespace TSKT.Tweens
             {
                 if (local)
                 {
-                    Target.transform.GetLocalPositionAndRotation(out var pos, out var r);
+                    transform.GetLocalPositionAndRotation(out var pos, out var r);
                     To(pos, r);
                 }
                 else
                 {
-                    Target.transform.GetPositionAndRotation(out var pos, out var r);
+                    transform.GetPositionAndRotation(out var pos, out var r);
                     To(pos, r);
                 }
             }
@@ -61,12 +63,12 @@ namespace TSKT.Tweens
             {
                 if (local)
                 {
-                    Target.transform.GetLocalPositionAndRotation(out var pos, out var r);
+                    transform.GetLocalPositionAndRotation(out var pos, out var r);
                     From(pos, r);
                 }
                 else
                 {
-                    Target.transform.GetPositionAndRotation(out var pos, out var r);
+                    transform.GetPositionAndRotation(out var pos, out var r);
                     From(pos, r);
                 }
             }
@@ -77,11 +79,11 @@ namespace TSKT.Tweens
 
             if (local)
             {
-                Target.transform.SetLocalPositionAndRotation(position, rotation);
+                transform.SetLocalPositionAndRotation(position, rotation);
             }
             else
             {
-                Target.transform.SetPositionAndRotation(position, rotation);
+                transform.SetPositionAndRotation(position, rotation);
             }
         }
         public PositionAndRotation RegisterCancellationToken(CancellationToken cancellationToken)

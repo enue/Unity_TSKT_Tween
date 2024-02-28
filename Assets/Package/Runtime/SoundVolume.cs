@@ -9,12 +9,12 @@ namespace TSKT.Tweens
 {
     public class SoundVolume : Task
     {
-        AudioSource targetAudio;
+        readonly AudioSource targetAudio;
         float? to;
         float? from;
         Func<float, float, float, float> function = EasingFunction.Linear;
 
-        public SoundVolume(AudioSource target, float duration, bool scaledTime) : base(target.gameObject, duration, scaledTime: scaledTime)
+        public SoundVolume(AudioSource target, float duration, bool scaledTime) : base(target.gameObject, default, duration, scaledTime: scaledTime)
         {
             targetAudio = target;
         }
