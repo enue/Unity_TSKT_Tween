@@ -50,7 +50,7 @@ namespace TSKT.Tweens
 
             targetAudio.volume = function.Invoke(from.Value, to.Value, NormalizedElapsedTime);
         }
-        public SoundVolume RegisterCancellationToken(CancellationToken cancellationToken)
+        public new SoundVolume RegisterCancellationToken(CancellationToken cancellationToken)
         {
             cancellationToken.Register(Halt);
 

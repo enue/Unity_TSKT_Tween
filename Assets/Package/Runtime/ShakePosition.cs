@@ -66,7 +66,7 @@ namespace TSKT.Tweens
                 transform.position = initialPosition.Value + offset;
             }
         }
-        public ShakePosition RegisterCancellationToken(CancellationToken cancellationToken)
+        public new ShakePosition RegisterCancellationToken(CancellationToken cancellationToken)
         {
             cancellationToken.Register(Halt);
 

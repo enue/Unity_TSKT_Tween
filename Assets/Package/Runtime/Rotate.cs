@@ -81,7 +81,7 @@ namespace TSKT.Tweens
                 transform.rotation = rotation;
             }
         }
-        public Rotate RegisterCancellationToken(CancellationToken cancellationToken)
+        public new Rotate RegisterCancellationToken(CancellationToken cancellationToken)
         {
             cancellationToken.Register(Halt);
 

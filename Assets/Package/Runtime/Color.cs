@@ -195,7 +195,7 @@ namespace TSKT.Tweens
                 canvasGroup!.alpha = color.a;
             }
         }
-        public Color RegisterCancellationToken(CancellationToken cancellationToken)
+        public new Color RegisterCancellationToken(CancellationToken cancellationToken)
         {
             cancellationToken.Register(() =>
             {

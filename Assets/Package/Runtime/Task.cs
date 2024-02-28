@@ -25,6 +25,7 @@ namespace TSKT.Tweens
         public float Duration { get; }
         readonly bool scaledTime;
         AwaitableCompletionSource<FinishType>? completion;
+        readonly CancellationToken destroyCancellationToken;
         public bool Halted { get; private set; }
 
         public Task(GameObject? target, CancellationToken destroyCancellationToken, float duration, bool scaledTime)
@@ -33,6 +34,7 @@ namespace TSKT.Tweens
             this.scaledTime = scaledTime;
             this.target = target;
             hasTarget = target;
+            this.destroyCancellationToken = destroyCancellationToken;
 
             if (scaledTime)
             {
@@ -43,10 +45,10 @@ namespace TSKT.Tweens
                 startedTime = Time.realtimeSinceStartup;
             }
 
-            _ = Update(destroyCancellationToken);
+            _ = Update();
         }
 
-        async Awaitable Update(CancellationToken destroyCancellationToken)
+        async Awaitable Update()
         {
             try
             {
@@ -143,6 +145,11 @@ namespace TSKT.Tweens
         {
             Halted = true;
             completion?.TrySetResult(FinishType.Halted);
+        }
+        public Task RegisterCancellationToken(CancellationToken cancellationToken)
+        {
+            cancellationToken.Register(Halt);
+            return this;
         }
     }
 }

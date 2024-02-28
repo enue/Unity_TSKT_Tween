@@ -169,7 +169,7 @@ namespace TSKT.Tweens
                 target.position = position;
             }
         }
-        public Move RegisterCancellationToken(CancellationToken cancellationToken)
+        public new Move RegisterCancellationToken(CancellationToken cancellationToken)
         {
             cancellationToken.Register(Halt);
 

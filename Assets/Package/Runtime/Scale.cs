@@ -52,7 +52,7 @@ namespace TSKT.Tweens
 
             transform.localScale = new Vector3(x, y, z);
         }
-        public Scale RegisterCancellationToken(CancellationToken cancellationToken)
+        public new Scale RegisterCancellationToken(CancellationToken cancellationToken)
         {
             cancellationToken.Register(Halt);
 

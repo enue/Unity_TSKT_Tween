@@ -32,7 +32,7 @@ namespace TSKT.Tweens
             return this;
         }
 
-        public Value Callback(Action<float> callback)
+        public Value Subscribe(Action<float> callback)
         {
             this.callback += callback;
             return this;
@@ -48,7 +48,7 @@ namespace TSKT.Tweens
         {
             callback?.Invoke(function.Invoke(from, to, NormalizedElapsedTime));
         }
-        public Value RegisterCancellationToken(CancellationToken cancellationToken)
+        public new Value RegisterCancellationToken(CancellationToken cancellationToken)
         {
             cancellationToken.Register(Halt);
 

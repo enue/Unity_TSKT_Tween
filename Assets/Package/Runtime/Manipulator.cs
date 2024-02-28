@@ -27,7 +27,7 @@ namespace TSKT.Tweens
         {
             action?.Invoke(new ManipulatingHandler<T>(this, target));
         }
-        public Manipulator<T> RegisterCancellationToken(CancellationToken cancellationToken)
+        public new Manipulator<T> RegisterCancellationToken(CancellationToken cancellationToken)
         {
             cancellationToken.Register(Halt);
 
