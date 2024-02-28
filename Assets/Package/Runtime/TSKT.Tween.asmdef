@@ -2,8 +2,7 @@
     "name": "TSKT.Tween",
     "rootNamespace": "",
     "references": [
-        "GUID:25eaf5e4be2791e43b57be474a081820",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "GUID:25eaf5e4be2791e43b57be474a081820"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

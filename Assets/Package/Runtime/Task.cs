@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cysharp.Threading.Tasks;
 using System.Threading;
 
 namespace TSKT.Tweens
@@ -45,10 +44,10 @@ namespace TSKT.Tweens
                 startedTime = Time.realtimeSinceStartup;
             }
 
-            _ = Update();
+            _ = Run();
         }
 
-        async Awaitable Update()
+        async Awaitable Run()
         {
             try
             {
@@ -129,8 +128,6 @@ namespace TSKT.Tweens
             }
         }
 
-
-        public UniTask<FinishType> UniTask => Awaitable.AsUniTask();
 
         public Awaitable<FinishType> Awaitable
         {
