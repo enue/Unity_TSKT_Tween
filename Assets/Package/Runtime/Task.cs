@@ -14,6 +14,7 @@ namespace TSKT.Tweens
         {
             Completed,
             Halted,
+            DisabledGameObject,
             DestroyedGameObject,
         }
 
@@ -57,10 +58,18 @@ namespace TSKT.Tweens
                     {
                         break;
                     }
-                    if (hasTarget && !target)
+                    if (hasTarget)
                     {
-                        completion?.TrySetResult(FinishType.DestroyedGameObject);
-                        break;
+                        if (!target)
+                        {
+                            completion?.TrySetResult(FinishType.DestroyedGameObject);
+                            break;
+                        }
+                        if (!target!.activeInHierarchy)
+                        {
+                            completion?.TrySetResult(FinishType.DisabledGameObject);
+                            break;
+                        }
                     }
 
                     Apply();
@@ -86,7 +95,7 @@ namespace TSKT.Tweens
             {
                 return Halted
                     || (ElapsedTime >= Duration)
-                    || (hasTarget && !target);
+                    || (hasTarget && (!target || !target!.activeInHierarchy));
             }
         }
 
