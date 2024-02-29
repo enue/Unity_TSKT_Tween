@@ -9,7 +9,8 @@ namespace TSKT.Tweens
 {
     public class Move : Task
     {
-        public Move(GameObject target, float duration, bool scaledTime) : base(target, default, duration, scaledTime: scaledTime)
+        public Move(GameObject target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
+            : base(target, destroyCancellationToken, duration, scaledTime: scaledTime)
         {
             this.target = target.transform;
         }

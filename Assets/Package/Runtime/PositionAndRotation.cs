@@ -9,7 +9,8 @@ namespace TSKT.Tweens
 {
     public class PositionAndRotation : Task
     {
-        public PositionAndRotation(GameObject target, float duration, bool scaledTime) : base(target, default, duration, scaledTime: scaledTime)
+        public PositionAndRotation(GameObject target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
+            : base(target, destroyCancellationToken, duration, scaledTime: scaledTime)
         {
             transform = target.transform;
         }

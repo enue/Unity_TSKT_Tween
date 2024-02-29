@@ -26,36 +26,26 @@ namespace TSKT.Tweens
 
         Func<float, float, float, float> function = EasingFunction.Cubic.EaseOut;
 
-        public Color(GameObject target, float duration, bool scaledTime) : base(target, default, duration, scaledTime: scaledTime)
-        {
-            if (!target.TryGetComponent<Graphic>(out targetGraphic))
-            {
-                if (!target.TryGetComponent<SpriteRenderer>(out targetSprite))
-                {
-                    if (!target.TryGetComponent<MeshRenderer>(out meshRenderer))
-                    {
-                        canvasGroup = target.GetComponent<CanvasGroup>();
-                    }
-                }
-            }
-        }
-
-        public Color(Graphic target, float duration, bool scaledTime) : base(target.gameObject, target.destroyCancellationToken, duration, scaledTime: scaledTime)
+        public Color(Graphic target, float duration, bool scaledTime)
+            : base(target.gameObject, target.destroyCancellationToken, duration, scaledTime: scaledTime)
         {
             targetGraphic = target;
         }
 
-        public Color(SpriteRenderer target, float duration, bool scaledTime) : base(target.gameObject, default, duration, scaledTime: scaledTime)
+        public Color(SpriteRenderer target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
+            : base(target.gameObject, destroyCancellationToken, duration, scaledTime: scaledTime)
         {
             targetSprite = target;
         }
 
-        public Color(MeshRenderer target, float duration, bool scaledTime) : base(target.gameObject, default, duration, scaledTime: scaledTime)
+        public Color(MeshRenderer target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
+            : base(target.gameObject, destroyCancellationToken, duration, scaledTime: scaledTime)
         {
             meshRenderer = target;
         }
 
-        public Color(CanvasGroup target, float duration, bool scaledTime) : base(target.gameObject, default, duration, scaledTime: scaledTime)
+        public Color(CanvasGroup target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
+            : base(target.gameObject, destroyCancellationToken, duration, scaledTime: scaledTime)
         {
             canvasGroup = target;
         }

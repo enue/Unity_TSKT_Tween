@@ -6,34 +6,29 @@ namespace TSKT
 {
     public static class Tween
     {
-        public static Move Move(GameObject target, float duration, bool scaledTime = true)
+        public static Move Move(GameObject target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
         {
-            return new Move(target, duration, scaledTime: scaledTime);
+            return new Move(target, duration, scaledTime: scaledTime, destroyCancellationToken);
         }
 
-        public static Scale Scale(GameObject target, float duration, bool scaledTime = true)
+        public static Scale Scale(GameObject target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
         {
-            return new Scale(target, duration, scaledTime: scaledTime);
+            return new Scale(target, duration, scaledTime: scaledTime, destroyCancellationToken);
         }
 
-        public static Rotate Rotate(GameObject target, float duration, bool scaledTime = true)
+        public static Rotate Rotate(GameObject target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
         {
-            return new Rotate(target, duration, scaledTime: scaledTime);
+            return new Rotate(target, duration, scaledTime: scaledTime, destroyCancellationToken);
         }
 
-        public static PositionAndRotation MoveAndRotate(GameObject target, float duration, bool scaledTime = true)
+        public static PositionAndRotation MoveAndRotate(GameObject target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
         {
-            return new PositionAndRotation(target, duration, scaledTime: scaledTime);
+            return new PositionAndRotation(target, duration, scaledTime: scaledTime, destroyCancellationToken);
         }
 
-        public static Tweens.Color Color(GameObject target, float duration, bool scaledTime = true)
+        public static Tweens.Color Color(SpriteRenderer target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
         {
-            return new Tweens.Color(target, duration, scaledTime: scaledTime);
-        }
-
-        public static Tweens.Color Color(SpriteRenderer target, float duration, bool scaledTime = true)
-        {
-            return new Tweens.Color(target, duration, scaledTime: scaledTime);
+            return new Tweens.Color(target, duration, scaledTime: scaledTime, destroyCancellationToken);
         }
 
         public static Tweens.Color Color(UnityEngine.UI.Graphic target, float duration, bool scaledTime = true)
@@ -41,40 +36,35 @@ namespace TSKT
             return new Tweens.Color(target, duration, scaledTime: scaledTime);
         }
 
-        public static Tweens.Color Color(MeshRenderer target, float duration, bool scaledTime = true)
+        public static Tweens.Color Color(MeshRenderer target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
         {
-            return new Tweens.Color(target, duration, scaledTime: scaledTime);
+            return new Tweens.Color(target, duration, scaledTime: scaledTime, destroyCancellationToken);
         }
 
-        public static Tweens.Color Color(CanvasGroup target, float duration, bool scaledTime = true)
+        public static Tweens.Color Color(CanvasGroup target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
         {
-            return new Tweens.Color(target, duration, scaledTime: scaledTime);
+            return new Tweens.Color(target, duration, scaledTime: scaledTime, destroyCancellationToken);
         }
 
-        public static ShakePosition ShakePosition(GameObject target, float duration, bool scaledTime = true)
+        public static ShakePosition ShakePosition(GameObject target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
         {
-            return new ShakePosition(target, duration, scaledTime: scaledTime);
+            return new ShakePosition(target, duration, scaledTime: scaledTime, destroyCancellationToken);
         }
 
-        public static SoundVolume SoundVolume(GameObject target, float duration, bool scaledTime = true)
+        public static SoundVolume SoundVolume(AudioSource target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
         {
-            return SoundVolume(target.GetComponent<AudioSource>(), duration, scaledTime);
+            return new SoundVolume(target, duration, scaledTime: scaledTime, destroyCancellationToken);
         }
 
-        public static SoundVolume SoundVolume(AudioSource target, float duration, bool scaledTime = true)
-        {
-            return new SoundVolume(target, duration, scaledTime: scaledTime);
-        }
-
-        public static Manipulator<T> Manipulate<T>(T target, float duration, bool scaledTime = true)
+        public static Manipulator<T> Manipulate<T>(T target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
             where T : Component
         {
-            return new Manipulator<T>(target, duration, scaledTime: scaledTime);
+            return new Manipulator<T>(target, duration, scaledTime: scaledTime, destroyCancellationToken: destroyCancellationToken);
         }
 
-        public static Value Value(float duration, bool scaledTime = true)
+        public static Value Value(float duration, bool scaledTime = true, GameObject? target = null, System.Threading.CancellationToken destroyCancellationToken = default)
         {
-            return new Value(duration, scaledTime: scaledTime);
+            return new Value(duration, scaledTime: scaledTime, target, destroyCancellationToken);
         }
     }
 }
