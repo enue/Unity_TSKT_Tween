@@ -21,7 +21,8 @@ namespace TSKT.Tweens
         R3.Subject<float>? subject;
 #endif
 
-        public Value(float duration, bool scaledTime) : base(null, default, duration, scaledTime: scaledTime)
+        public Value(float duration, bool scaledTime, GameObject? target = null, CancellationToken destroyCancellationToken = default)
+            : base(target, destroyCancellationToken, duration, scaledTime: scaledTime)
         {
         }
 
