@@ -5,16 +5,21 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+#if R3_SUPPORT
+using R3;
+#endif
+
 namespace TSKT.Tweens
 {
     public class Value : Task
     {
-        public delegate void CallbackAction(float time);
-
         float to;
         float from;
         Func<float, float, float, float> function = EasingFunction.Linear;
         Action<float>? callback;
+#if R3_SUPPORT
+        R3.Subject<float>? subject;
+#endif
 
         public Value(float duration, bool scaledTime) : base(null, default, duration, scaledTime: scaledTime)
         {
@@ -38,6 +43,28 @@ namespace TSKT.Tweens
             return this;
         }
 
+#if R3_SUPPORT
+        public R3.Observable<float> Observable
+        {
+            get
+            {
+                if (subject == null)
+                {
+                    subject = new();
+                    _ = DisposeAsync();
+                }
+                return subject;
+
+                async Awaitable DisposeAsync()
+                {
+                    await Awaitable;
+                    subject?.Dispose();
+                    subject = null;
+                }
+            }
+        }
+#endif
+
         public Value Function(Func<float, float, float, float> value)
         {
             function = value;
@@ -46,7 +73,11 @@ namespace TSKT.Tweens
 
         protected override void Apply()
         {
-            callback?.Invoke(function.Invoke(from, to, NormalizedElapsedTime));
+            var value = function.Invoke(from, to, NormalizedElapsedTime);
+            callback?.Invoke(value);
+#if R3_SUPPORT
+            subject?.OnNext(value);
+#endif
         }
         public new Value RegisterCancellationToken(CancellationToken cancellationToken)
         {

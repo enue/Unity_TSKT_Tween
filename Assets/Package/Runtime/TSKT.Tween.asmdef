@@ -2,7 +2,8 @@
     "name": "TSKT.Tween",
     "rootNamespace": "",
     "references": [
-        "GUID:25eaf5e4be2791e43b57be474a081820"
+        "GUID:25eaf5e4be2791e43b57be474a081820",
+        "GUID:77221876cc6b8244180b96e320b1bcd4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -11,6 +12,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.cysharp.r3",
+            "expression": "",
+            "define": "R3_SUPPORT"
+        }
+    ],
     "noEngineReferences": false
 }
