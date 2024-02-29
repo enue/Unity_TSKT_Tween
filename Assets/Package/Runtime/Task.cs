@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 
 namespace TSKT.Tweens
 {
@@ -53,8 +54,7 @@ namespace TSKT.Tweens
             {
                 while (true)
                 {
-                    await UnityEngine.Awaitable.EndOfFrameAsync(destroyCancellationToken);
-
+                    await UniTask.Yield(PlayerLoopTiming.PostLateUpdate, destroyCancellationToken);
                     if (Halted)
                     {
                         break;
