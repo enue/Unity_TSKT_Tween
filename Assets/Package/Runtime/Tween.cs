@@ -66,5 +66,9 @@ namespace TSKT
         {
             return new Value(duration, scaledTime: scaledTime, target, destroyCancellationToken);
         }
+        public static Value<T> Value<T>(float duration, bool scaledTime = true, GameObject? target = null, System.Threading.CancellationToken destroyCancellationToken = default)
+        {
+            return new Value<T>(duration, scaledTime: scaledTime, target, destroyCancellationToken);
+        }
     }
 }
