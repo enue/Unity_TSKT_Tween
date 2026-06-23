@@ -45,7 +45,7 @@ namespace TSKT.Tweens
                 startedTime = Time.realtimeSinceStartup;
             }
 
-            _ = Run();
+            Run().LogExceptionsAndForget();
         }
 
         async Awaitable Run()

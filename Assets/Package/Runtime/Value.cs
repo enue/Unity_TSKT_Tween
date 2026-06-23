@@ -52,7 +52,7 @@ namespace TSKT.Tweens
                 if (subject == null)
                 {
                     subject = new();
-                    _ = DisposeAsync();
+                    DisposeAsync().LogExceptionsAndForget();
                 }
                 return subject;
 
@@ -131,7 +131,7 @@ namespace TSKT.Tweens
                 if (subject == null)
                 {
                     subject = new();
-                    _ = DisposeAsync();
+                    DisposeAsync().LogExceptionsAndForget();
                 }
                 return subject;
 
