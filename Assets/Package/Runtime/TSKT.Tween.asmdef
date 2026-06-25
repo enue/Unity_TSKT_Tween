@@ -13,12 +13,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [
-        {
-            "name": "com.cysharp.r3",
-            "expression": "",
-            "define": "R3_SUPPORT"
-        }
-    ],
+    "versionDefines": [],
     "noEngineReferences": false
 }
