@@ -32,20 +32,20 @@ namespace TSKT.Tweens
             targetGraphic = target;
         }
 
-        public Color(SpriteRenderer target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
-            : base(target.gameObject, destroyCancellationToken, duration, scaledTime: scaledTime)
+        public Color(SpriteRenderer target, float duration, bool scaledTime, System.Threading.CancellationToken cancellationToken)
+            : base(target.gameObject, cancellationToken, duration, scaledTime: scaledTime)
         {
             targetSprite = target;
         }
 
-        public Color(MeshRenderer target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
-            : base(target.gameObject, destroyCancellationToken, duration, scaledTime: scaledTime)
+        public Color(MeshRenderer target, float duration, bool scaledTime, System.Threading.CancellationToken cancellationToken)
+            : base(target.gameObject, cancellationToken, duration, scaledTime: scaledTime)
         {
             meshRenderer = target;
         }
 
-        public Color(CanvasGroup target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
-            : base(target.gameObject, destroyCancellationToken, duration, scaledTime: scaledTime)
+        public Color(CanvasGroup target, float duration, bool scaledTime, System.Threading.CancellationToken cancellationToken)
+            : base(target.gameObject, cancellationToken, duration, scaledTime: scaledTime)
         {
             canvasGroup = target;
         }

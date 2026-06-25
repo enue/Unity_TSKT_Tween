@@ -59,7 +59,7 @@ namespace TSKT
         public static Manipulator<T> Manipulate<T>(T target, float duration, bool scaledTime = true, System.Threading.CancellationToken destroyCancellationToken = default)
             where T : Component
         {
-            return new Manipulator<T>(target, duration, scaledTime: scaledTime, destroyCancellationToken: destroyCancellationToken);
+            return new Manipulator<T>(target, duration, scaledTime: scaledTime, cancellationToken: destroyCancellationToken);
         }
 
         public static Value Value(float duration, bool scaledTime = true, GameObject? target = null, System.Threading.CancellationToken destroyCancellationToken = default)

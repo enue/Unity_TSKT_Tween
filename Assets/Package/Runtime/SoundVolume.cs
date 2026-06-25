@@ -14,8 +14,8 @@ namespace TSKT.Tweens
         float? from;
         Func<float, float, float, float> function = EasingFunction.Linear;
 
-        public SoundVolume(AudioSource target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
-            : base(target.gameObject, destroyCancellationToken, duration, scaledTime: scaledTime)
+        public SoundVolume(AudioSource target, float duration, bool scaledTime, System.Threading.CancellationToken cancellationToken)
+            : base(target.gameObject, cancellationToken, duration, scaledTime: scaledTime)
         {
             targetAudio = target;
         }

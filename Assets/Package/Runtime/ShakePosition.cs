@@ -14,8 +14,8 @@ namespace TSKT.Tweens
         Vector3? initialPosition;
         readonly Transform transform;
 
-        public ShakePosition(GameObject target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
-            : base(target, destroyCancellationToken, duration, scaledTime: scaledTime)
+        public ShakePosition(GameObject target, float duration, bool scaledTime, System.Threading.CancellationToken cancellationToken)
+            : base(target, cancellationToken, duration, scaledTime: scaledTime)
         {
             transform = target.transform;
         }

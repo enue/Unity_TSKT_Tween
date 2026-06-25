@@ -13,8 +13,8 @@ namespace TSKT.Tweens
         Action<ManipulatingHandler<T>>? action;
         readonly T target;
 
-        public Manipulator(T target, float duration, bool scaledTime, System.Threading.CancellationToken destroyCancellationToken)
-            : base(target.gameObject, destroyCancellationToken, duration, scaledTime: scaledTime)
+        public Manipulator(T target, float duration, bool scaledTime, System.Threading.CancellationToken cancellationToken)
+            : base(target.gameObject, cancellationToken, duration, scaledTime: scaledTime)
         {
             this.target = target;
         }

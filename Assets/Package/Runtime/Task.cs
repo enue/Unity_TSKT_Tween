@@ -25,16 +25,16 @@ namespace TSKT.Tweens
         public float Duration { get; }
         readonly bool scaledTime;
         AwaitableCompletionSource<FinishType>? completion;
-        readonly CancellationToken destroyCancellationToken;
+        readonly CancellationToken cancellationToken;
         public bool Halted { get; private set; }
 
-        public Task(GameObject? target, CancellationToken destroyCancellationToken, float duration, bool scaledTime)
+        public Task(GameObject? target, CancellationToken cancellationToken, float duration, bool scaledTime)
         {
             Duration = duration;
             this.scaledTime = scaledTime;
             this.target = target;
             hasTarget = target;
-            this.destroyCancellationToken = destroyCancellationToken;
+            this.cancellationToken = cancellationToken;
 
             if (scaledTime)
             {
@@ -54,7 +54,7 @@ namespace TSKT.Tweens
             {
                 while (true)
                 {
-                    await UniTask.Yield(PlayerLoopTiming.PostLateUpdate, destroyCancellationToken);
+                    await UniTask.Yield(PlayerLoopTiming.PostLateUpdate, cancellationToken);
                     if (Halted)
                     {
                         break;
