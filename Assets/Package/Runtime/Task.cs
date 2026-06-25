@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using R3;
 
 namespace TSKT.Tweens
 {
@@ -24,9 +25,10 @@ namespace TSKT.Tweens
         readonly float startedTime;
         public float Duration { get; }
         readonly bool scaledTime;
-        AwaitableCompletionSource<FinishType>? completion;
+        ReactiveProperty<FinishType>? subject;
         readonly CancellationToken cancellationToken;
-        public bool Halted { get; private set; }
+        public bool Halted => finishType.HasValue && finishType.Value == FinishType.Halted;
+        FinishType? finishType;
 
         public Task(GameObject? target, CancellationToken cancellationToken, float duration, bool scaledTime)
         {
@@ -63,12 +65,16 @@ namespace TSKT.Tweens
                     {
                         if (!target)
                         {
-                            completion?.TrySetResult(FinishType.DestroyedGameObject);
+                            finishType = FinishType.DestroyedGameObject;
+                            subject?.OnNext(finishType.Value);
+                            subject?.OnCompleted();
                             break;
                         }
                         if (!target!.activeInHierarchy)
                         {
-                            completion?.TrySetResult(FinishType.DisabledGameObject);
+                            finishType = FinishType.DestroyedGameObject;
+                            subject?.OnNext(finishType.Value);
+                            subject?.OnCompleted();
                             break;
                         }
                     }
@@ -77,28 +83,24 @@ namespace TSKT.Tweens
 
                     if (ElapsedTime >= Duration)
                     {
-                        completion?.TrySetResult(FinishType.Completed);
+                        finishType = FinishType.Completed;
+                        subject?.OnNext(finishType.Value);
+                        subject?.OnCompleted();
                         break;
                     }
                 }
             }
             catch (OperationCanceledException)
             {
-                completion?.TrySetResult(FinishType.DestroyedGameObject);
+                finishType = FinishType.DestroyedGameObject;
+                subject?.OnNext(finishType.Value);
+                subject?.OnCompleted();
             }
         }
 
         protected abstract void Apply();
 
-        public bool Finished
-        {
-            get
-            {
-                return Halted
-                    || (ElapsedTime >= Duration)
-                    || (hasTarget && (!target || !target!.activeInHierarchy));
-            }
-        }
+        public bool Finished => finishType.HasValue;
 
         public float NormalizedElapsedTime
         {
@@ -129,19 +131,24 @@ namespace TSKT.Tweens
         }
 
 
-        public Awaitable<FinishType> Awaitable
+        [Obsolete]
+        public Awaitable<FinishType> Awaitable => Wait();
+
+        public async Awaitable<FinishType> Wait(CancellationToken ct = default)
         {
-            get
+            if (finishType.HasValue)
             {
-                completion ??= new();
-                return completion.Awaitable;
+                return finishType.Value;
             }
+            subject ??= new();
+            return await subject.LastAsync(ct);
         }
 
         public void Halt()
         {
-            Halted = true;
-            completion?.TrySetResult(FinishType.Halted);
+            finishType = FinishType.Halted;
+            subject?.OnNext(finishType.Value);
+            subject?.OnCompleted();
         }
         public Task RegisterCancellationToken(CancellationToken cancellationToken)
         {

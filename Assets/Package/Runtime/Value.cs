@@ -4,10 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-
-#if R3_SUPPORT
 using R3;
-#endif
 
 namespace TSKT.Tweens
 {
@@ -17,9 +14,7 @@ namespace TSKT.Tweens
         float from;
         Func<float, float, float, float> function = EasingFunction.Linear;
         Action<float>? callback;
-#if R3_SUPPORT
         R3.Subject<float>? subject;
-#endif
 
         public Value(float duration, bool scaledTime, GameObject? target, CancellationToken cancellationToken)
             : base(target, cancellationToken, duration, scaledTime: scaledTime)
@@ -44,7 +39,6 @@ namespace TSKT.Tweens
             return this;
         }
 
-#if R3_SUPPORT
         public R3.Observable<float> Observable
         {
             get
@@ -64,8 +58,6 @@ namespace TSKT.Tweens
                 }
             }
         }
-#endif
-
         public Value Function(Func<float, float, float, float> value)
         {
             function = value;
@@ -76,9 +68,7 @@ namespace TSKT.Tweens
         {
             var value = function.Invoke(from, to, NormalizedElapsedTime);
             callback?.Invoke(value);
-#if R3_SUPPORT
             subject?.OnNext(value);
-#endif
         }
         public new Value RegisterCancellationToken(CancellationToken cancellationToken)
         {
@@ -95,9 +85,7 @@ namespace TSKT.Tweens
         float from;
         Func<float, float, float, float> function = EasingFunction.Linear;
         Action<float, T>? callback;
-#if R3_SUPPORT
         R3.Subject<float>? subject;
-#endif
 
         public Value(float duration, bool scaledTime, GameObject? target, CancellationToken cancellationToken)
             : base(target, cancellationToken, duration, scaledTime: scaledTime)
@@ -123,7 +111,6 @@ namespace TSKT.Tweens
             return this;
         }
 
-#if R3_SUPPORT
         public R3.Observable<float> Observable
         {
             get
@@ -131,19 +118,18 @@ namespace TSKT.Tweens
                 if (subject == null)
                 {
                     subject = new();
-                    DisposeAsync().LogExceptionsAndForget();
+                    Observe().LogExceptionsAndForget();
                 }
                 return subject;
 
-                async Awaitable DisposeAsync()
+                async Awaitable Observe()
                 {
-                    await Awaitable;
-                    subject?.Dispose();
+                    await Wait();
+                    subject.OnCompleted();
                     subject = null;
                 }
             }
         }
-#endif
 
         public Value<T> Function(Func<float, float, float, float> value)
         {
@@ -155,9 +141,7 @@ namespace TSKT.Tweens
         {
             var value = function.Invoke(from, to, NormalizedElapsedTime);
             callback?.Invoke(value, state);
-#if R3_SUPPORT
             subject?.OnNext(value);
-#endif
         }
         public new Value<T> RegisterCancellationToken(CancellationToken cancellationToken)
         {
