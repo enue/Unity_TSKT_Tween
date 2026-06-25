@@ -132,9 +132,9 @@ namespace TSKT.Tweens
 
 
         [Obsolete]
-        public Awaitable<FinishType> Awaitable => Wait();
+        public Awaitable<FinishType> Awaitable => Await();
 
-        public async Awaitable<FinishType> Wait(CancellationToken ct = default)
+        public async Awaitable<FinishType> Await(CancellationToken ct = default)
         {
             if (finishType.HasValue)
             {

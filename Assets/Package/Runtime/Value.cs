@@ -52,7 +52,7 @@ namespace TSKT.Tweens
 
                 async Awaitable DisposeAsync()
                 {
-                    await Awaitable;
+                    await Await();
                     subject?.Dispose();
                     subject = null;
                 }
@@ -124,7 +124,7 @@ namespace TSKT.Tweens
 
                 async Awaitable Observe()
                 {
-                    await Wait();
+                    await Await();
                     subject.OnCompleted();
                     subject = null;
                 }
